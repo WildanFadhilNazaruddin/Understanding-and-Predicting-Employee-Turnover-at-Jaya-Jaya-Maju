@@ -58,9 +58,6 @@ data_baru = pd.DataFrame([{
     'YearsSinceLastPromotion', 'YearsWithCurrManager'
 ]]
 
-hasil = model.predict(data_baru)
-print("Hasil prediksi (0=tidak keluar, 1=keluar):", hasil[0])
-
 # 4. Prediksi
 hasil = model.predict(data_baru)
 print("Hasil prediksi (0=tidak keluar, 1=keluar):", hasil[0])
