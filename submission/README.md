@@ -10,9 +10,7 @@ Untuk mencegah hal ini semakin parah, manajer departemen HR meminta bantuan untu
 
 ## ❓ Permasalahan Bisnis
 
-- 🔍 Mengidentifikasi faktor-faktor utama yang mempengaruhi tingginya attrition rate di perusahaan.
-- 🔮 Memprediksi kemungkinan karyawan akan keluar dari perusahaan.
-- 📊 Menyediakan dashboard interaktif untuk memonitor faktor-faktor yang berpengaruh terhadap attrition.
+Perusahaan Jaya Jaya Maju menghadapi permasalahan tingginya attrition rate (rasio karyawan keluar) yang melebihi 10%. Berdasarkan hasil eksplorasi data pada kolom `Attrition`, dari total 1.470 karyawan, sebanyak **879 karyawan tidak mengalami attrition** (tetap bekerja di perusahaan), sedangkan **179 karyawan mengalami attrition** (keluar dari perusahaan). Meskipun mayoritas karyawan masih bertahan, jumlah karyawan yang keluar tetap signifikan dan dapat berdampak negatif pada produktivitas, biaya rekrutmen, serta stabilitas operasional perusahaan. Oleh karena itu, diperlukan analisis lebih lanjut untuk memahami faktor-faktor utama yang menyebabkan attrition dan merumuskan solusi untuk meminimalisirnya.
 
 ---
 
@@ -28,15 +26,44 @@ Untuk mencegah hal ini semakin parah, manajer departemen HR meminta bantuan untu
 ## 🛠️ Persiapan
 
 ### **Sumber Data:**  
-- `employee_data.csv`: Berisi data karyawan Jaya Jaya Maju dengan berbagai fitur terkait demografi, pekerjaan, dan status attrition.
+Dataset yang digunakan adalah `employee_data.csv`, berisi data karyawan Jaya Jaya Maju dengan berbagai fitur terkait demografi, pekerjaan, dan status attrition.  
+Sumber dataset: [Dicoding Employee Dataset](https://github.com/dicodingacademy/dicoding_dataset/tree/main/employee)
 
-### **Setup Environment:**  
-1. Pastikan Python telah terinstal.
-2. Install dependencies dengan perintah:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Buka dan jalankan notebook analisis di `model/model.ipynb`.
+---
+
+### **Setup Environment**
+
+#### **Menggunakan Anaconda**
+```bash
+conda create --name main-ds python=3.9
+conda activate main-ds
+pip install -r requirements.txt
+```
+
+#### **Menggunakan Shell/Terminal**
+```bash
+pip install pipenv
+pipenv install
+pipenv shell
+pip install -r requirements.txt
+```
+
+---
+
+### **Menjalankan Notebook Analisis**
+Buka dan jalankan notebook analisis di:
+```
+model/model.ipynb
+```
+
+---
+
+### **Menjalankan File Prediksi (Opsional)**
+Jika ingin menjalankan file prediksi berbasis Python, gunakan perintah berikut di dalam environment yang sudah aktif:
+
+```bash
+python ./submission/prediction.py
+```
 
 ---
 
@@ -49,13 +76,22 @@ Business dashboard dibuat menggunakan **Metabase** untuk membantu HR dalam memon
 
 ### Cara Mengakses Dashboard Metabase
 
-#### ✅ Melalui Antarmuka Web
-1. Jalankan Metabase di server Anda.
-2. Buka browser dan akses:  
-   `http://localhost:3000`  
-   *(atau alamat Metabase Anda)*
-3. Login dengan akun Anda.
-4. Navigasi ke menu **Dashboard** untuk melihat dashboard yang telah dibuat.
+#### ✅ Melalui Antarmuka Web (Metabase Lokal dengan Docker)
+
+1. Pastikan file database Metabase (`metabase.db.mv.db`) sudah ada di direktori lokal Anda, misal di `/submission/`.
+2. Jalankan Metabase menggunakan Docker dengan perintah berikut (pastikan port 3000 belum digunakan):
+   ```bash
+   docker run -d -p 3000:3000 \
+     -v $(pwd)/submission:/metabase-data \
+     -e "MB_DB_FILE=/metabase-data/metabase.db.mv.db" \
+     --name metabase metabase/metabase
+   ```
+3. Buka browser dan akses:  
+   `http://localhost:3000`
+4. Login menggunakan:
+   - **Email:** 232153079@student.unsil.ac.id
+   - **Password:** KsXV6Trq$C8L5uB
+5. Navigasi ke menu **Dashboard** untuk melihat dashboard yang telah dibuat.
 
 #### 🖥️ Melalui API Metabase
 
@@ -63,9 +99,8 @@ Business dashboard dibuat menggunakan **Metabase** untuk membantu HR dalam memon
 ```bash
 curl -X POST http://localhost:3000/api/session \
   -H "Content-Type: application/json" \
-  -d '{"username":"your_email@example.com","password":"your_password"}'
+  -d '{"username":"232153079@student.unsil.ac.id","password":"KsXV6Trq$C8L5uB"}'
 ```
-*Ganti email dan password sesuai akun Anda.*
 
 **2. Mendapatkan Daftar Dashboard**
 ```bash
